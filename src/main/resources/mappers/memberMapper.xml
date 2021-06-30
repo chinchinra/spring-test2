@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+
+	<!-- 목록 조회 -->
+	<select id="readList" resultType="co.kr.vo.MemberVO"
+		parameterType="co.kr.page.Criteria">
+		SELECT
+		employee_id, name,
+		email,phone_number,
+		hire_date ,
+		leave_date , department_id , reg_no
+		FROM (SELECT employee_id,
+		name,
+		email,
+		phone_number,
+		hire_date ,
+		leave_date ,
+		department_id ,
+		reg_no,
+		ROW_NUMBER() OVER(ORDER BY employee_id DESC) AS RNUM
+		FROM employees)
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY employee_id
+		DESC
+	</select>
+
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(employee_id)
+		  FROM employees
+		 WHERE employee_id > 0
+	]]>
+	</select>
+
+	<select id="read" parameterType="long"
+		resultType="co.kr.vo.MemberVO">
+
+		SELECT
+		employee_id, name,
+		email,phone_number,
+		hire_date ,
+		address ,
+		leave_date , department_id , reg_no
+		FROM employees where
+		employee_id =
+		#{employee_id}
+
+	</select>
+
+	<insert id="write">
+		INSERT INTO employees (
+		employee_id
+		, name
+		, email
+		,
+		department_id
+		, phone_number
+		, hire_date
+		, leave_date
+		, address
+		, reg_no
+		,
+		bank_id
+		, bank_account
+		)
+		VALUES(
+		EMPLOYEES_SEQ.nextval
+		, #{name}
+		, #{email}
+		, #{department_id}
+		, #{phone_number}
+		, TO_CHAR(SYSDATE,
+		'YYYY-MM-DD')
+		,
+		TO_CHAR(SYSDATE,
+		'YYYY-MM-DD')
+		, #{address}
+		, #{reg_no}
+		, #{bank_id}
+		, #{bank_account} )
+	</insert>
+
+	<update id="update">
+		UPDATE employees a
+		SET name = #{name},
+		email = #{email} ,
+		phone_number = #{phone_number},
+		leave_date = TO_CHAR(SYSDATE,'YYYY-MM-DD') , 
+		department_id = #{department_id} ,
+		reg_no = #{reg_no},
+		bank_id = #{bank_id},
+		bank_account = #{bank_account}
+		where a.employee_id = #{employee_id}
+	</update>
+
+	<delete id="delete" parameterType="long">
+		DELETE FROM employees a WHERE
+		a.employee_id = #{employee_id}
+	</delete>
+	
+	
+	<select id="banks" 
+		resultType="co.kr.vo.BanksVo">
+
+		SELECT
+		bank_id, bank_name
+		FROM banks 
+
+	</select>
+	
+	<select id="departments" 
+		resultType="co.kr.vo.DepartmentsVO">
+
+		SELECT
+		department_id, department_name
+		FROM departments 
+
+	</select>
+
+</mapper>
