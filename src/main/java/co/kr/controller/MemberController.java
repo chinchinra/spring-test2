@@ -70,7 +70,11 @@ public class MemberController {
 	public String readPage(Model model, @RequestParam("employee_id") Long employee_id) {
 		logger.info("readPage");
 
-		System.out.println(service.readVo(employee_id).getAddress());
+//		System.out.println(service.readVo(employee_id).getAddress());
+		
+		
+		model.addAttribute("banksList",service.bankList());
+		model.addAttribute("departmentsList",service.departmentsList());
 		model.addAttribute("member", service.readVo(employee_id));
 
 		return "/hr-read";
@@ -80,7 +84,7 @@ public class MemberController {
 	public String updatePage(Model model, @RequestParam("employee_id") Long employee_id) {
 		logger.info("updatePage");
 
-		System.out.println(service.readVo(employee_id).getAddress());
+//		System.out.println(service.readVo(employee_id).getAddress());
 		model.addAttribute("member", service.readVo(employee_id));
 
 		return "/hr-update";

@@ -20,15 +20,9 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
 	rel="stylesheet">
 <title>인사관리 시스템</title>
-<title>인사관리 시스템</title>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-
 
 
 <style>
@@ -187,23 +181,77 @@
 						<div class="row">
 							<div class="col-sm-4 form-group">
 								<label>입사일</label> <input type="text" placeholder="입사일"
-									class="form-control" value="${member.hire_date}">
+									class="form-control"
+									value="<fmt:formatDate value="${member.hire_date}" 
+										pattern="yyyy-MM-dd" />">
+
+
 							</div>
 
 							<div class="col-sm-4 form-group">
 								<label for="exampleFormControlSelect1">부서명</label> <select
 									class="department_id" id="department_id">
-									<option value="10">관리부</option>
-									<option value="20">영업부</option>
-									<option value="30">구매부</option>
-									<option value="40">개발부</option>
-									<option value="50">배송부</option>
-									<option value="60">IT사업부</option>
+
+
+									<c:choose>
+										<c:when test="${10 eq member.department_id}">
+											<option value="10" selected="selected">관리부</option>
+										</c:when>
+										<c:when test="${10 ne  member.department_id}">
+											<option value="10">관리부</option>
+										</c:when>
+									</c:choose>
+									<c:choose>
+										<c:when test="${20 eq member.department_id}">
+											<option value="20" selected="selected">영업부</option>
+										</c:when>
+										<c:when test="${20 ne  member.department_id}">
+											<option value="20">영업부</option>
+										</c:when>
+									</c:choose>
+
+									<c:choose>
+										<c:when test="${30 eq member.department_id}">
+											<option value="30" selected="selected">구매부</option>
+										</c:when>
+										<c:when test="${30 ne  member.department_id}">
+											<option value="30">구매부</option>
+										</c:when>
+									</c:choose>
+
+									<c:choose>
+										<c:when test="${40 eq member.department_id}">
+											<option value="40" selected="selected">개발부</option>
+										</c:when>
+										<c:when test="${40 ne  member.department_id}">
+											<option value="40">개발부</option>
+										</c:when>
+									</c:choose>
+
+									<c:choose>
+										<c:when test="${50 eq member.department_id}">
+											<option value="50" selected="selected">배송부</option>
+										</c:when>
+										<c:when test="${50 ne  member.department_id}">
+											<option value="50">배송부</option>
+										</c:when>
+									</c:choose>
+
+									<c:choose>
+										<c:when test="${60 eq member.department_id}">
+											<option value="60" selected="selected">IT사업부</option>
+										</c:when>
+										<c:when test="${60 ne  member.department_id}">
+											<option value="60">IT사업부</option>
+										</c:when>
+									</c:choose>
 								</select>
 							</div>
 							<div class="col-sm-4 form-group">
 								<label>퇴사일</label> <input type="text" placeholder="퇴사일"
-									class="form-control" value="${member.leave_date}">
+									class="form-control"
+									value="<fmt:formatDate value="${member.leave_date}" 
+										pattern="yyyy-MM-dd" />">
 							</div>
 						</div>
 						<div class="row">
