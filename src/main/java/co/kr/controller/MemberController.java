@@ -83,7 +83,9 @@ public class MemberController {
 	@RequestMapping("/updatePage")
 	public String updatePage(Model model, @RequestParam("employee_id") Long employee_id) {
 		logger.info("updatePage");
-
+		
+		System.out.println(service.readVo(employee_id).getBank_id());
+		
 //		System.out.println(service.readVo(employee_id).getAddress());
 		model.addAttribute("member", service.readVo(employee_id));
 
@@ -99,6 +101,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	//@ResponseBody   응답데이터를 보냄  , @RequestBody 요청 데이터를 받아서 객체에 저장함
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAction(@RequestBody MemberVO vo, Model model , @RequestParam("employee_id") Long employee_id) {

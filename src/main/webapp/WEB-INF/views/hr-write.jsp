@@ -22,8 +22,27 @@
 
 <title>인사관리 시스템</title>
 
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
 <script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -57,9 +76,9 @@
 				$("#name").focus();
 				return false;
 			}
-			if (aaa() == false) {
-				return false;
-			}
+			//		if (aaa() == false) {
+			//		return false;
+			//	}
 
 			//alert($("#bank_id").val());
 
@@ -157,7 +176,7 @@
 						<div class="row">
 
 							<div class="col-sm-6 form-group">
-								<label>성명</label> <input type="text" id="name" name="name" val
+								<label>성명</label> <input type="text" id="name" name="name"
 									class="form-control">
 							</div>
 							<div class="col-sm-6 form-group">
@@ -178,11 +197,14 @@
 
 							<div class="col-sm-4 form-group">
 								<label for="exampleFormControlSelect1">부서명</label> <select
-									class="department_id" id="department_id">
+									class="form-control" id="department_id">
 
-									<c:forEach items="${departmentsList}" var="departmentsList">
-										<option value="${departmentsList.department_id}">${departmentsList.department_name}</option>
-									</c:forEach>
+
+									<option value="10">관리부</option>
+									<option value="10">영업부</option>
+									<option value="10">인사부</option>
+									<option value="10">배송부</option>
+									<option value="10">IT개발부</option>
 
 								</select>
 							</div>
@@ -194,11 +216,13 @@
 						<div class="row">
 							<div class="col-sm-4 form-group">
 								<label for="exampleFormControlSelect1">급여은행</label> <select
-									class="bank_id" id="bank_id">
+									class="form-control" id="bank_id">
 
-									<c:forEach items="${banksList}" var="banksList">
-										<option value="${banksList.bank_id}">${banksList.bank_name}</option>
-									</c:forEach>
+
+									<option value="10">국민은행</option>
+									<option value="11">우리은행</option>
+									<option value="12">기업은행</option>
+									<option value="13">농협은행</option>
 
 								</select>
 							</div>

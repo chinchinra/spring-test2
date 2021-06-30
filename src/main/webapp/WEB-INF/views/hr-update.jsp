@@ -54,15 +54,16 @@
 		$("#btn_update").on("click", function() {
 
 			alert("save?");
+			aaa();
 
 			if ($("#name").val() == "") {
 				alert("아이디 입력바람");
 				$("#name").focus();
 				return false;
 			}
-			if (aaa() == false) {
-				return false;
-			}
+			//	if (aaa() == false) {
+			//		return false;
+			//	}
 
 			alert("save");
 
@@ -156,7 +157,7 @@
 		</ul>
 
 		<hr>
-		<input value="${member.employee_id}" id="employee_id" type="hidden">
+
 		<div class="col-lg-12 well">
 			<div class="row">
 				<form role="form" method="post" action="write">
@@ -190,7 +191,7 @@
 
 							<div class="col-sm-4 form-group">
 								<label for="exampleFormControlSelect1">부서명</label> <select
-									class="department_id" id="department_id">
+									class="form-control" id="department_id">
 
 
 									<c:choose>
@@ -221,10 +222,10 @@
 
 									<c:choose>
 										<c:when test="${40 eq member.department_id}">
-											<option value="40" selected="selected">개발부</option>
+											<option value="40" selected="selected">인사부</option>
 										</c:when>
 										<c:when test="${40 ne  member.department_id}">
-											<option value="40">개발부</option>
+											<option value="40">인사부</option>
 										</c:when>
 									</c:choose>
 
@@ -257,11 +258,46 @@
 						<div class="row">
 							<div class="col-sm-4 form-group">
 								<label for="exampleFormControlSelect1">급여은행</label> <select
-									class="bank_id" id="bank_id">
-									<option value="10">국민은행</option>
-									<option value="11">우리은행</option>
-									<option value="12">기업은행</option>
-									<option value="13">농협은행</option>
+									class="form-control" id="bank_id">
+
+									<c:choose>
+										<c:when test="${10 eq member.bank_id}">
+											<option value="10" selected="selected">국민은행</option>
+										</c:when>
+										<c:when test="${10 ne  member.bank_id}">
+											<option value="10">국민은행</option>
+										</c:when>
+									</c:choose>
+
+									<c:choose>
+										<c:when test="${11 eq member.bank_id}">
+											<option value="11" selected="selected">우리은행</option>
+										</c:when>
+										<c:when test="${11 ne  member.bank_id}">
+											<option value="11">우리은행</option>
+										</c:when>
+									</c:choose>
+
+									<c:choose>
+										<c:when test="${12 eq member.bank_id}">
+											<option value="12" selected="selected">기업은행</option>
+										</c:when>
+										<c:when test="${12 ne  member.bank_id}">
+											<option value="12">기업은행</option>
+										</c:when>
+									</c:choose>
+
+									<c:choose>
+										<c:when test="${13 eq member.bank_id}">
+											<option value="13" selected="selected">농협은행</option>
+										</c:when>
+										<c:when test="${13 ne  member.bank_id}">
+											<option value="13">농협은행</option>
+										</c:when>
+									</c:choose>
+
+
+
 								</select>
 							</div>
 

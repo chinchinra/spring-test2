@@ -44,7 +44,7 @@
 		email,phone_number,
 		hire_date ,
 		address ,
-		leave_date , department_id , reg_no
+		leave_date , department_id , reg_no , bank_id
 		FROM employees where
 		employee_id =
 		#{employee_id}
