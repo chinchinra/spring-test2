@@ -35,6 +35,7 @@ public class MemberController {
 		pagemaker.setCri(cri);
 		pagemaker.setTotalCount(service.listCount());
 		model.addAttribute("pageMaker", pagemaker);
+		model.addAttribute("departmentsList", service.departmentsList());
 
 		return "hr-board";
 	}
@@ -42,21 +43,16 @@ public class MemberController {
 	@RequestMapping("/writePage")
 	public String writePage(Model model) {
 		logger.info("writePage");
-		
-		model.addAttribute("banksList",service.bankList());
-		model.addAttribute("departmentsList",service.departmentsList());
-		
+
+		model.addAttribute("banksList", service.bankList());
+		model.addAttribute("departmentsList", service.departmentsList());
+
 		return "/hr-write";
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	@ResponseBody
 	public String writeAction(@RequestBody MemberVO vo, Model model) {
-
-//		System.out.println("==id==" + vo.getEmployee_id());
-//		System.out.println("==name==" + vo.getName());
-//		System.out.println("==email==" + vo.getEmail());
-//		System.out.println("==bank_id==" + vo.getBank_id());
 
 		logger.info("write");
 		service.write(vo);
@@ -66,15 +62,15 @@ public class MemberController {
 
 	}
 
+	
+
+
 	@RequestMapping("/readPage")
 	public String readPage(Model model, @RequestParam("employee_id") Long employee_id) {
 		logger.info("readPage");
 
-//		System.out.println(service.readVo(employee_id).getAddress());
-		
-		
-		model.addAttribute("banksList",service.bankList());
-		model.addAttribute("departmentsList",service.departmentsList());
+		model.addAttribute("banksList", service.bankList());
+		model.addAttribute("departmentsList", service.departmentsList());
 		model.addAttribute("member", service.readVo(employee_id));
 
 		return "/hr-read";
@@ -83,10 +79,8 @@ public class MemberController {
 	@RequestMapping("/updatePage")
 	public String updatePage(Model model, @RequestParam("employee_id") Long employee_id) {
 		logger.info("updatePage");
-		
-		System.out.println(service.readVo(employee_id).getBank_id());
-		
-//		System.out.println(service.readVo(employee_id).getAddress());
+
+
 		model.addAttribute("member", service.readVo(employee_id));
 
 		return "/hr-update";
@@ -100,11 +94,31 @@ public class MemberController {
 
 		return "redirect:/";
 	}
+	
+	
+	
+	@RequestMapping(value = "/deleteList", method = RequestMethod.POST)
+	public String delete_user(@RequestParam("vehicle1") Long[] employee_id, Model model) throws Exception {
+		
+		logger.info("deleteList");
+	    // 삭제할 사용자 ID마다 반복해서 사용자 삭제
+	    for (Long user_id : employee_id) {
+	        System.out.println("사용자 삭제 = " + user_id);
+	        service.delete(user_id);
+	    }
+	    // 목록 페이지로 이동
+	    return "redirect:/";
+	}
 
-	//@ResponseBody   응답데이터를 보냄  , @RequestBody 요청 데이터를 받아서 객체에 저장함
+	 
+
+
+	
+
+	// @ResponseBody 응답데이터를 보냄 , @RequestBody 요청 데이터를 받아서 객체에 저장함
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateAction(@RequestBody MemberVO vo, Model model , @RequestParam("employee_id") Long employee_id) {
+	public String updateAction(@RequestBody MemberVO vo, Model model, @RequestParam("employee_id") Long employee_id) {
 
 		vo.setEmployee_id(employee_id);
 		logger.info("update");

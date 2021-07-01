@@ -14,6 +14,19 @@
 			window.location.href = "/writePage";
 		});
 
+		var formObj = $("form[name='readForm']");
+		$('#btn_delete').click(function() {
+			
+			
+			var nu = $("input:checkbox[name=vehicle1]:checked").length
+			alert(nu);
+			
+			formObj.attr("action", "/deleteList");
+			formObj.attr("method", "post");
+			formObj.submit();
+
+		});
+
 	});
 </script>
 
@@ -50,7 +63,7 @@
 					<!-- Material inline 1 -->
 					<div class="form-check form-check-inline">
 						<input type="radio" class="form-check-input" id="materialInline1"
-							name="inlineMaterialRadiosExample"> <label
+							name="inlineMaterialRadiosExample" checked="checked" > <label
 							class="form-check-label" for="materialInline1">전체</label>
 					</div>
 
@@ -80,8 +93,9 @@
 
 
 		<div class="table-responsive-xl">
-			<form method="get">
-				<table class="table table-hover table-striped table-bordered">
+			<form method="post" name="readForm">
+				<table class="table table-hover table-striped table-bordered"
+					id="table_check">
 					<thead class="thead-dark">
 						<tr>
 							<th scope="col">선택</th>
@@ -102,13 +116,19 @@
 								pattern="000000,0000000" />
 							<tr>
 								<td><input type="checkbox" id="vehicle1" name="vehicle1"
-									value="Bike"></td>
+									value="${list.employee_id}"></td>
 								<td><c:out value="${list.employee_id}" /></td>
+
 								<td><a href="/readPage?employee_id=${list.employee_id}"><c:out
 											value="${list.name}" /></a></td>
 								<td><c:out value="${fn:replace(licsNo, ',', '-')}" /></td>
 
-								<td><c:out value="${list.department_id}" /></td>
+								<c:forEach items="${departmentsList}" var="departmentsList">
+									<c:if
+										test="${list.department_id eq departmentsList.department_id}">
+										<td><c:out value="${departmentsList.department_name}" /></td>
+									</c:if>
+								</c:forEach>
 								<td><fmt:formatDate value="${list.hire_date}"
 										pattern="yyyy-MM-dd" /></td>
 								<td><fmt:formatDate value="${list.leave_date}"
@@ -132,9 +152,10 @@
 						</c:if>
 						<!--숫자 출력 begin 에서 end 까지 정수 idx값으로 출력 ex) 0 ,3이라면  0123  -->
 
-						<c:forEach  begin="${pageMaker.startPage}"
+						<c:forEach begin="${pageMaker.startPage}"
 							end="${pageMaker.endPage}" var="idx">
-							<li class="page-item"><a class="page-link" href="/${pageMaker.makeQuery(idx)}">${idx}</a></li>
+							<li class="page-item"><a class="page-link"
+								href="/${pageMaker.makeQuery(idx)}">${idx}</a></li>
 						</c:forEach>
 						<!-- 왜 이전페이지는 pageMaker.endPage > 0 없는데 될까 -->
 						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
@@ -154,7 +175,7 @@
 			<div class="card-body pl-0 pt-0">
 				<!-- <div class="btn-group" role="group" aria-label="buttons"> -->
 				<button type="button" id="btn_write" class="btn btn-dark mr-3">추가</button>
-				<button type="button" class="btn btn-dark">삭제</button>
+				<button type="submit" id="btn_delete" class="btn btn-dark">삭제</button>
 				<!-- </div> -->
 			</div>
 		</div>

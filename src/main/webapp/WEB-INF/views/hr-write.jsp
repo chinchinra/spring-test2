@@ -69,18 +69,45 @@
 <script type="text/javascript">
 	$(function() {
 
-		$("#btn_save").on("click", function() {
+		var named = RegExp(/^[가-힣]+$/);
+		var email = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 
+		$("#btn_save").on("click", function() {
+			//이름 공백 검사
 			if ($("#name").val() == "") {
 				alert("아이디 입력바람");
 				$("#name").focus();
 				return false;
 			}
+
+			//이름 유효성 검사
+			if (!named.test($("#name").val())) {
+				alert("이름형식에 맞게 입력해주세요")
+				$("#name").val("");
+				$("#name").focus();
+				return false;
+			}
+
+			//이메일 공백 확인
+			if ($("#email").val() == "") {
+				alert("이메일을 입력해주세요");
+				$("#email").focus();
+				return false;
+			}
+
+			//이메일 유효성 검사
+			if (!email.test($("#email").val())) {
+				alert("이메일형식에 맞게 입력해주세요")
+				$("#email").val("");
+				$("#email").focus();
+				return false;
+			}
+
 			//		if (aaa() == false) {
 			//		return false;
 			//	}
 
-			//alert($("#bank_id").val());
+			
 
 			$.ajax({
 
